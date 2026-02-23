@@ -27,5 +27,5 @@ accuracy = accuracy_score(y_test, y_pred)
 
 print("Model Accuracy:", accuracy)
 import pickle
-pickle.dump(model, open("student_model.pkl", "wb"))
+pickle.dump(model, open("model.pkl", "wb"))
 print("Model saved successfully!")
