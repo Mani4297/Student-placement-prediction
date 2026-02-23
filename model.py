@@ -2,12 +2,13 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+import pickle
 
 # Load dataset
 data = pd.read_csv("placement_data.csv")
 
-# Separate input and output
-X = data.drop("Placed", axis=1)
+# Use all input features
+X = data[["10th", "12th", "CGPA", "Internship", "Communication", "Technical"]]
 y = data["Placed"]
 
 # Split data
@@ -19,13 +20,11 @@ model = LogisticRegression()
 # Train model
 model.fit(X_train, y_train)
 
-# Predict
+# Accuracy check
 y_pred = model.predict(X_test)
-
-# Accuracy
 accuracy = accuracy_score(y_test, y_pred)
-
 print("Model Accuracy:", accuracy)
-import pickle
+
+# Save model
 pickle.dump(model, open("model.pkl", "wb"))
 print("Model saved successfully!")
