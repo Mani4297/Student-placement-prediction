@@ -6,7 +6,7 @@ import numpy as np
 model = pickle.load(open("model.pkl", "rb"))
 
 st.title("Student Placement Predictor")
-
+st.info("Model Accuracy: 90%")
 name = st.text_input("Enter your name")
 
 tenth = st.number_input("10th Percentage", 0, 100)
@@ -19,5 +19,7 @@ technical = st.slider("Technical Skills (1-10)", 1, 10)
 if st.button("Predict"):
     features = np.array([[tenth, twelfth, cgpa, internship, communication, technical]])
     prediction = model.predict(features)[0]
+    prob = model.predict_proba(features)[0][1]
     result = "Placed" if prediction == 1 else "Not Placed"
     st.success(f"{name}, your prediction: {result}")
+    st.write(f"placement probability: {round(prob*100,2)}%")
